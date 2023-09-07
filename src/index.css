@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* margin: 0 auto; */
+  box-sizing: border-box;
+  font-family: "Yuji Syuku", serif;
+  background-color: #141618;
+  color: whitesmoke;
+}
