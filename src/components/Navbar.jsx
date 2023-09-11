@@ -15,10 +15,10 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 py-10 w-full flex items-center justify-between text-xl bg-[#141618] shadow-2xl shadow-zinc-700">
 
-   <div className="flex-row w-80 pt-2 mx-6">
+   <div className="flex-row pb-2 w-80 mx-6">
   <Link to="/" className="text-2xl flex items-center" onClick={closeMenu}>
     Everything Dark
-    <img className="w-5 ml-2" src={Image} alt="image of whitemoon" />
+    <img className="w-5 pt-2 ml-2" src={Image} alt="image of whitemoon" />
   </Link>
 </div>
 
