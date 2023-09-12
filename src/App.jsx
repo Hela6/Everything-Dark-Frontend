@@ -15,6 +15,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/Category" element={<Category/>}/>
+      
       <Route path="/Profile" element={<Profile/>}/>
       <Route path="/Log" element={<Log/>}/>
       <Route path="*" element={<NotFound/>}/>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import spinner from '../assets/img/spinner.svg'
 import DOMPurify from 'dompurify'
+import { Link } from 'react-router-dom';
 
 export default function Category() {
   const [APIState, setAPIState] = useState({
@@ -8,6 +9,8 @@ export default function Category() {
     error: false,
      data: undefined
   })
+
+  const [ desiredCategory, setDesiredCategory ] = useState('/api/categories/1')
 
     useEffect(() => {
       setAPIState({...APIState, loading: true})
@@ -22,32 +25,34 @@ export default function Category() {
       })
     }, [])
 
-    //add a switch statement here to create links that display the category's articles when clicking on a category link 
-    //create links for each category and dynamically change the const param depending on the desired category
-    
-
-     const desiredCategory = '/api/categories/2'; // Replace with your desired category URL
-
-     
 
   let content;
-  if(APIState.loading) content = <img src={spinner} alt="icône de chargement" />
+  if(APIState.loading) content = <img className="mx-auto" src={spinner} alt="icône de chargement" />
   else if(APIState.error) content = <p className="text-center">an error has occured...</p>
   else if(APIState.data?.length > 0){ 
     
       const filteredArticles = APIState.data.filter((article) => article.category === desiredCategory);
 
-      content = <div className="flex flex-col items-center mb-12 lg:flex-row lg:justify-start">
+      content = <div>
          {filteredArticles.map((article) => (
-          <div  key={article.id}>
+          <div key={article.id} className="flex flex-row items-center p-3 lg:3/5">
            
-          <img src={article.image} className="w-80 mx-auto" alt="article image" /> 
-          <div>
-              <h2 className="text-white text-2xl text-center text-bold mb-3">{article.title}</h2>
-                <p
-              className="p-6"
+          <img src={article.image} className="w-40 h-fit lg:w-64" alt="article image" /> 
+          <div className="p-3 lg:w-fit">
+            <p className="text-slate-400">  {/* Conditional rendering based on category */}
+          {article.category === '/api/categories/1' && (
+            <p>music</p>
+          )}
+          {article.category === '/api/categories/2' && (
+            <p>fashion</p>
+          )}
+          {article.category === '/api/categories/3' && (
+            <p>graphic arts</p>
+          )}</p>
+              <h2 className="text-slate-100 text-2xl text-bold mb-3">{article.title}</h2>
+                <p className="text-sm mb-10"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(article.content) // Render sanitized HTML
+                __html: DOMPurify.sanitize(article.intro) // Render sanitized HTML
               }}
             ></p>
           </div>
@@ -60,10 +65,36 @@ else if(APIState.data?.length === 0){
   content = <p>not match was found for your request...</p>
 }
   return (
-    <div className="mx-auto lg:w-2/3">
-      <h1 className="text-2xl text-white text-center p-10 mt-36">Articles</h1>
-
+    <>
+      <nav className="flex justify-center w-full shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)] shadow-zinc-700 p-6 fixed top-24 bg-[#141618]">
+        <Link
+          className={`text-slate-100 text-center text-xl text-bold mb-3 rounded-full px-3 pb-2 hover:bg-slate-200 hover:text-slate-900 ${
+            desiredCategory === '/api/categories/1' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+          } lg:mx-12 mx-2`}
+          onClick={() => setDesiredCategory('/api/categories/1')}
+        >
+          Music
+        </Link>
+        <Link
+          className={`text-slate-100 text-center text-xl text-bold mb-3 rounded-full px-3 pb-2 hover:bg-slate-200 hover:text-slate-900 ${
+            desiredCategory === '/api/categories/2' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+          } lg:mx-12 mx-2`}
+          onClick={() => setDesiredCategory('/api/categories/2')}
+        >
+          Fashion
+        </Link>
+        <Link
+          className={`text-slate-100 text-center text-xl text-bold mb-3 rounded-full px-3 pb-2 hover:bg-slate-200 hover:text-slate-900 ${
+            desiredCategory === '/api/categories/3' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+          } lg:mx-12 mx-2`}
+          onClick={() => setDesiredCategory('/api/categories/3')}
+        >
+          Graphic Arts
+        </Link>
+      </nav>
+       <div className="mt-60 lg:mx-auto lg:w-2/5">
       {content}
-    </div>
-  )
+      </div>
+    </>
+  );
 }
