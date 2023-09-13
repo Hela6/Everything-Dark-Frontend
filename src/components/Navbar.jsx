@@ -13,7 +13,7 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 py-10 w-full flex items-center justify-between text-xl bg-[#141618] shadow-2xl shadow-zinc-700">
+    <nav className="fixed top-0 py-10 w-full flex items-center justify-between text-xl bg-[#0b0c0e] shadow-2xl shadow-zinc-700">
 
    <div className="flex-row pb-2 w-80 mx-6">
   <Link to="/" className="text-2xl flex items-center" onClick={closeMenu}>
@@ -22,39 +22,39 @@ export default function Navbar() {
   </Link>
 </div>
 
-      <div className={`${showMenu ? "flex" : "hidden"} flex-col items-center bg-[#141618] w-full absolute top-full h-screen lg:flex lg:relative lg:flex-row lg:items-center lg:justify-end lg:h-2 lg:mx-6`}>
+      <div className={`${showMenu ? "flex" : "hidden"} flex-col items-center bg-[#0b0c0e] w-full absolute top-full h-screen lg:flex lg:relative lg:flex-row lg:items-center lg:justify-end lg:h-2 lg:mx-6`}>
                         
       <Link 
       to="/"
-      className="inline-block py-2 mx-4 text-lg"
+      className="inline-block py-2 mb-10 lg:mb-0 pt-48 lg:pt-2 mx-4 text-lg"
       onClick={closeMenu} 
       >
         Home
       </Link>
       <Link 
       to="/Category"
-      className="inline-block y-2 mx-4 text-lg"
+      className="inline-block y-2 mb-10 lg:mb-0 mx-4 text-lg"
       onClick={closeMenu} 
       >
         Categories
       </Link>
       <Link 
       to="/Profile"
-      className="inline-block py-2 mx-4 text-lg"
+      className="inline-block py-2 mb-10 lg:mb-0 mx-4 text-lg"
       onClick={closeMenu} 
       >
         Profile
       </Link>
       <Link 
       to="/Log"
-      className="inline-block py-2 mx-4 text-lg"
+      className="inline-block py-2 mb-10 lg:mb-0 mx-4 text-lg"
       onClick={closeMenu} 
       >
         Log
       </Link> 
       
        <Searchbar
-       className="inline-block py-2 mx-4 text-lg"
+       className="inline-block py-2 mb-10 lg:mb-0 mx-4 text-lg"
        />
         </div>
     
