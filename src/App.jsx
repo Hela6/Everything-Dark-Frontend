@@ -3,6 +3,7 @@ import Home from "./components/Home"
 import Category from "./components/Category"
 import Article from "./components/Article"
 import Profile from "./components/Profile"
+import SearchResults from "./components/SearchResults"
 import Log from "./components/Log"
 import NotFound from "./components/NotFound"
 import Navbar from "./components/Navbar"
@@ -16,9 +17,11 @@ function App() {
     <Routes>
       <Route path="/" element={<Home/>}/>
       <Route path="/Category" element={<Category/>}/>
+      <Route path="/Category/:id" element={<Category/>}/>
       <Route path="/Article/:id" element={<Article/>}/>
       <Route path="/Profile" element={<Profile/>}/>
       <Route path="/Log" element={<Log/>}/>
+      <Route path="/SearchResults" element={<SearchResults/>}/>
       <Route path="*" element={<NotFound/>}/>
     </Routes>
   </BrowserRouter>

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import spinner from '../assets/img/spinner.svg'
 import DOMPurify from 'dompurify'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 
 export default function Category() {
@@ -11,9 +11,11 @@ export default function Category() {
      data: undefined
   })
 
-  const [ desiredCategory, setDesiredCategory ] = useState('/api/categories/1')
+  const { id } = useParams();
 
-    useEffect(() => {
+  const [ desiredCategory, setDesiredCategory ] = useState(id ? `/api/categories/${id}` : '/api/categories/1');
+
+  useEffect(() => {
       setAPIState({...APIState, loading: true})
       fetch("http://127.0.0.1:8000/api/articles?page=1")
       .then(res => {
@@ -25,6 +27,7 @@ export default function Category() {
         setAPIState({loading: false, error: false, data: data['hydra:member']})
       })
     }, [])
+
 
   let content;
   if(APIState.loading) content = <img className="mx-auto" src={spinner} alt="icône de chargement" />
@@ -68,32 +71,36 @@ export default function Category() {
 else if(APIState.data?.length === 0){
   content = <p>not match was found for your request...</p>
 }
+
+
   return (
     <>
-      <nav className="flex justify-center w-full shadow-[0_35px_60px_-35px_rgba(0,0,0,0.3)] shadow-zinc-700 p-6 fixed top-24 bg-[#0b0c0e]">
+    
+      <nav className="flex justify-center w-full shadow-[0_35px_60px_-35px_rgba(0,0,0,0.3)] shadow-zinc-700 p-6 fixed top-28 bg-[#0b0c0e]">
+       
         <Link
           className={`text-slate-100 text-center text-l lg:text-xl text-bold mb-3 rounded-full px-3 pb-2 ${
-            desiredCategory === '/api/categories/1' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+            desiredCategory === '/api/categories/1' ? 'bg-slate-300 text-slate-900' : 'bg-slate-500'
           } lg:mx-12 mx-2`}
           onClick={() => setDesiredCategory('/api/categories/1')}
         >
-          Music
+          music
         </Link>
         <Link
           className={`text-slate-100 text-center text-l lg:text-xl text-bold mb-3 rounded-full px-3 pb-2 ${
-            desiredCategory === '/api/categories/2' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+            desiredCategory === '/api/categories/2' ? 'bg-slate-300 text-slate-900' : 'bg-slate-500'
           } lg:mx-12 mx-2`}
           onClick={() => setDesiredCategory('/api/categories/2')}
         >
-          Fashion
+          fashion
         </Link>
         <Link
           className={`text-slate-100 text-center text-l lg:text-xl text-bold mb-3 rounded-full px-3 pb-2 ${
-            desiredCategory === '/api/categories/3' ? 'bg-slate-200 text-slate-900' : 'bg-slate-500'
+            desiredCategory === '/api/categories/3' ? 'bg-slate-300 text-slate-900' : 'bg-slate-500'
           } lg:mx-12 mx-2`}
           onClick={() => setDesiredCategory('/api/categories/3')}
         >
-          Graphic Arts
+          graphic arts
         </Link>
       </nav>
        <div className="mt-60 lg:mx-auto lg:w-2/5">

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import spinner from '../assets/img/spinner.svg';
 import DOMPurify from 'dompurify';
-import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 
 export default function Article() {
   const [APIState, setAPIState] = useState({
@@ -12,6 +12,14 @@ export default function Article() {
   });
 
   const { id } = useParams();
+
+  const navigate = useNavigate(); 
+
+   // Function to extract category ID from the article's category URL
+  const getCategoryIDFromURL = (categoryURL) => {
+    const parts = categoryURL.split('/');
+    return parts[parts.length - 1];
+  };
 
   useEffect(() => {
     console.log("Fetching article with ID:", id); // Log the ID
@@ -35,6 +43,9 @@ export default function Article() {
   } else if (APIState.data) {
     const article = APIState.data;
 
+      // Extract category ID from the article's category URL
+    const categoryID = getCategoryIDFromURL(article.category);
+
     content = (
       <div>
         <div key={article.id} className="flex flex-col items-center lg:items-start p-3 lg:3/5 lg:flex-row">
@@ -42,9 +53,9 @@ export default function Article() {
           <div className="p-3 lg:w-fit">
             <p className="text-slate-400">
               {/* Conditional rendering based on category */}
-              {article.category === '/api/categories/1' && <p>music</p>}
-              {article.category === '/api/categories/2' && <p>fashion</p>}
-              {article.category === '/api/categories/3' && <p>graphic arts</p>}
+              {article.category === '/api/categories/1' ? 'music' :
+                article.category === '/api/categories/2' ? 'fashion' :
+                article.category === '/api/categories/3' ? 'graphic arts' : ''}
             </p>
             <h2 className="text-slate-100 text-2xl text-bold mb-3">{article.title}</h2>
             <p
@@ -53,10 +64,16 @@ export default function Article() {
                 __html: DOMPurify.sanitize(article.content), // Render sanitized HTML
               }}
             ></p>
-            <Link to="/Category">
-            <button className="text-slate-100 text-center text-l font-bold mb-3 border-2 border-slate-100 rounded-full px-3 pb-2 shadow-lg shadow-zinc-700">
-              Back to categories
-            </button></Link>
+            {/* Navigate to the category page with the appropriate category ID */}
+           <button
+            className="text-slate-100 text-center text-l font-bold mb-3 border-2 border-slate-100 rounded-full px-3 pb-2 shadow-lg shadow-zinc-700"
+            onClick={() => navigate(`/Category/${categoryID}`)}
+            >
+            Back to {article.category === '/api/categories/1' ? 'music' :
+                      article.category === '/api/categories/2' ? 'fashion' :
+                      article.category === '/api/categories/3' ? 'graphic arts' : ''}
+            </button>
+          {/* return to article's same category */}
           </div>
         </div>
       </div>

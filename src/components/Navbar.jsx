@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import Searchbar from './Searchbar'
+import SearchBar from './SearchBar'
 import { useState } from 'react'
 import menu from '../assets/img/menu.svg'
 import cross from '../assets/img/cross.svg'
@@ -13,14 +13,20 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="fixed top-0 py-10 w-full flex items-center justify-between text-xl bg-[#0b0c0e] shadow-2xl shadow-zinc-700">
+    <nav className="fixed top-0 py-8 lg:py-10 w-full flex items-center justify-between text-xl bg-[#0b0c0e] shadow-2xl shadow-zinc-700">
 
    <div className="flex-row pb-2 w-80 mx-6">
   <Link to="/" className="text-2xl flex items-center" onClick={closeMenu}>
     Everything Dark
     <img className="w-5 pt-2 ml-2" src={Image} alt="image of whitemoon" />
   </Link>
+<div className="lg:hidden mt-2">
+<SearchBar
+       className="inline-block text-sm py-2  mx-4"
+       />
 </div>
+
+  </div>
 
       <div className={`${showMenu ? "flex" : "hidden"} flex-col items-center bg-[#0b0c0e] w-full absolute top-full h-screen lg:flex lg:relative lg:flex-row lg:items-center lg:justify-end lg:h-2 lg:mx-6`}>
                         
@@ -52,10 +58,12 @@ export default function Navbar() {
       >
         Log
       </Link> 
-      
-       <Searchbar
-       className="inline-block py-2 mb-10 lg:mb-0 mx-4 text-lg"
+      <div className="hidden lg:block">
+        <SearchBar
+       className="inline-block py-2 mb-10 lg:mb-0 mx-4"
        />
+      </div>
+       
         </div>
     
      <button
